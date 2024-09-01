@@ -96,13 +96,13 @@ python -m src.cli --algorithm "Random Forest" --feature-engineering "PCA" --tune
 
 ### CLI Options
 
-- \`--algorithm\`: Specifies the machine learning algorithm to use. Options include:
+- `--algorithm`: Specifies the machine learning algorithm to use. Options include:
   - "Naive Bayes"
   - "Decision Tree"
   - "Logistic Regression"
   - "Random Forest"
   
-- \`--feature-engineering\`: Specifies the feature engineering technique to apply. Options include:
+- `--feature-engineering`: Specifies the feature engineering technique to apply. Options include:
   - "None"
   - "Standard Scaling"
   - "Min-Max Scaling"
@@ -110,9 +110,9 @@ python -m src.cli --algorithm "Random Forest" --feature-engineering "PCA" --tune
   - "Polynomial Features"
   - "SelectKBest"
   
-- \`--tune-hyperparameters\`: Enables hyperparameter tuning using RandomizedSearchCV.
+- `--tune-hyperparameters`: Enables hyperparameter tuning using RandomizedSearchCV.
   
-- \`--cross-validation\`: Enables cross-validation to evaluate the model's performance.
+- `--cross-validation`: Enables cross-validation to evaluate the model's performance.
 
 ## Example Command
 
