@@ -27,7 +27,7 @@ This project implements a modularized pipeline for detecting malicious network t
 
 The project is organized into the following directory structure:
 
-\`\`\`bash
+```bash
 project/
 │
 ├── data/
@@ -49,7 +49,7 @@ project/
 │   └── cli.py                       # Command-line interface for running the pipeline
 │
 └── README.md                        # Project overview and instructions
-\`\`\`
+```
 
 ### Explanation of Key Components
 
@@ -75,24 +75,24 @@ project/
 
 To get started, clone the repository and navigate into the project directory:
 
-\`\`\`bash
+```bash
 git clone https://github.com/yourusername/malicious-traffic-detection-ml.git
 cd malicious-traffic-detection-ml
-\`\`\`
+```
 
 Make sure you have the required Python packages installed. You can install them using:
 
-\`\`\`bash
+```bash
 pip install -r requirements.txt
-\`\`\`
+```
 
 ## Running the Pipeline
 
 To run the pipeline using the command-line interface, use the following command:
 
-\`\`\`bash
+```bash
 python -m src.cli --algorithm "Random Forest" --feature-engineering "PCA" --tune-hyperparameters --cross-validation
-\`\`\`
+```
 
 ### CLI Options
 
@@ -118,9 +118,9 @@ python -m src.cli --algorithm "Random Forest" --feature-engineering "PCA" --tune
 
 Here's an example command to run a pipeline with Random Forest, PCA for feature engineering, hyperparameter tuning enabled, and cross-validation:
 
-\`\`\`bash
+```bash
 python -m src.cli --algorithm "Random Forest" --feature-engineering "PCA" --tune-hyperparameters --cross-validation
-\`\`\`
+```
 
 This command will execute the entire pipeline, including data preprocessing, feature engineering, model training, hyperparameter tuning, and evaluation. Results, including trained models and evaluation reports, will be saved in the \`results/\` directory.
 
