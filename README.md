@@ -3,6 +3,8 @@
 
 A machine learning-based system for detecting malicious network traffic, developed as part of a master's research project.
 
+- [Paper](https://sol.sbc.org.br/index.php/wgrs/article/view/35631/35418)
+
 ## Project Overview
 
 This project implements a modularized pipeline for detecting malicious network traffic using various machine learning algorithms. It provides flexibility in experimentation with different feature engineering techniques, hyperparameter tuning, and cross-validation. The project is designed to be easily extendable and adaptable to different research and practical needs.
