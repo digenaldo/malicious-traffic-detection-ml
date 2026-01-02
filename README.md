@@ -42,14 +42,19 @@ project/
 │   ├── __init__.py                  # Indicates that src is a module
 │   ├── main.py                      # Orchestrates the entire pipeline
 │   ├── config.py                    # Configuration file containing paths and model settings
-│   ├── utils/                       # Directory for utility scripts
-│   │   ├── __init__.py              # Indicates that utils is a module
-│   │   ├── data_preprocessing.py    # Functions for loading and preprocessing data
-│   │   ├── feature_engineering.py   # Functions for applying feature engineering techniques
-│   │   ├── model_training.py        # Functions for model training and hyperparameter tuning
-│   │   └── evaluation.py            # Functions for evaluating models and generating reports
-│   └── cli.py                       # Command-line interface for running the pipeline
+│   ├── cli.py                       # Command-line interface for running the pipeline
+│   └── utils/                       # Directory for utility scripts
+│       ├── __init__.py              # Indicates that utils is a module
+│       ├── data_preprocessing.py    # Functions for loading and preprocessing data
+│       ├── feature_engineering.py   # Functions for applying feature engineering techniques
+│       ├── model_training.py        # Functions for model training and hyperparameter tuning
+│       └── evaluation.py            # Functions for evaluating models and generating reports
 │
+├── Dockerfile                       # Docker image definition
+├── docker-compose.yml               # Docker Compose configuration for Podman/Docker
+├── .dockerignore                    # Files to exclude from Docker build
+├── requirements.txt                 # Python dependencies
+├── generate_synthetic_data.py       # Script to generate synthetic test data
 └── README.md                        # Project overview and instructions
 ```
 
@@ -75,6 +80,68 @@ project/
 
 ## Installation and Setup
 
+### Option 1: Using Docker/Podman (Recommended)
+
+This project includes Docker and Podman support for easy deployment and consistent environments.
+
+#### Prerequisites
+- Docker or Podman installed on your system
+- For Podman, you may need `podman-compose` (install with: `pip install podman-compose`)
+
+#### Building the Image
+
+Using Podman:
+```bash
+podman build -t malicious-traffic-detection-ml:latest .
+```
+
+Using Docker:
+```bash
+docker build -t malicious-traffic-detection-ml:latest .
+```
+
+#### Running with Podman Compose
+
+**Note:** For Podman, you may need to install `podman-compose`:
+```bash
+pip install podman-compose
+```
+
+Then build and run:
+```bash
+# Build and run
+podman-compose build
+podman-compose run ml-pipeline python -m src.cli --algorithm "Random Forest" --feature-engineering "PCA" --tune-hyperparameters --cross-validation
+```
+
+Alternatively, you can use `podman compose` (without the hyphen) if you have Podman 4.0+:
+```bash
+podman compose build
+podman compose run ml-pipeline python -m src.cli --algorithm "Random Forest" --feature-engineering "PCA"
+```
+
+#### Running with Docker Compose
+
+```bash
+# Build and run
+docker-compose build
+docker-compose run ml-pipeline python -m src.cli --algorithm "Random Forest" --feature-engineering "PCA" --tune-hyperparameters --cross-validation
+```
+
+#### Direct Container Execution
+
+Using Podman:
+```bash
+podman run --rm -v $(pwd)/data:/app/data:ro -v $(pwd)/results:/app/results malicious-traffic-detection-ml:latest python -m src.cli --algorithm "Random Forest" --feature-engineering "PCA"
+```
+
+Using Docker:
+```bash
+docker run --rm -v $(pwd)/data:/app/data:ro -v $(pwd)/results:/app/results malicious-traffic-detection-ml:latest python -m src.cli --algorithm "Random Forest" --feature-engineering "PCA"
+```
+
+### Option 2: Local Python Installation
+
 To get started, clone the repository and navigate into the project directory:
 
 ```bash
@@ -82,11 +149,27 @@ git clone https://github.com/yourusername/malicious-traffic-detection-ml.git
 cd malicious-traffic-detection-ml
 ```
 
-Make sure you have the required Python packages installed. You can install them using:
+Make sure you have Python 3.11 or higher installed. Install the required Python packages:
 
 ```bash
 pip install -r requirements.txt
 ```
+
+**Note:** Ensure you have the data files (`train_mosaic.csv.zip` and `test_mosaic.csv.zip`) in the `data/` directory before running the pipeline.
+
+### Generating Synthetic Data for Testing
+
+If you don't have real data files, you can generate synthetic network traffic data for testing:
+
+```bash
+python generate_synthetic_data.py
+```
+
+This script will create:
+- `data/train_mosaic.csv.zip` - Training dataset (5000 samples)
+- `data/test_mosaic.csv.zip` - Testing dataset (1000 samples)
+
+The synthetic data includes features derived from network flow characteristics (packet counts, timing, flags, etc.) and labels (0 for benign, 1 for malicious traffic). The data is designed to test the ML pipeline functionality.
 
 ## Running the Pipeline
 
