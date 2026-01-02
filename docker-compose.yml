@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ml-pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: malicious-traffic-detection-ml:latest
+    container_name: ml-pipeline
+    volumes:
+      # Mount data directory
+      - ./data:/app/data:ro
+      # Mount results directory (read-write)
+      - ./results:/app/results
+    environment:
+      - PYTHONUNBUFFERED=1
+    # Override default command when running
+    # Example: podman-compose run ml-pipeline python -m src.cli --algorithm "Random Forest" --feature-engineering "PCA"
+    command: python -m src.cli --help
+
